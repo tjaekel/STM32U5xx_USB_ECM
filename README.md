@@ -1,0 +1,2 @@
+# STM32U5xx_USB_ECM
+ NUCLEO-U575ZI-Q with USB ECM, without SD Card
