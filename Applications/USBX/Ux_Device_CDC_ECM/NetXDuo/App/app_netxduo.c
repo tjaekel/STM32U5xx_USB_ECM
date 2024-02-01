@@ -1,4 +1,3 @@
-/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file    app_netxduo.c
@@ -16,36 +15,14 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
 
-/* Includes ------------------------------------------------------------------*/
 #include "app_netxduo.h"
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-
-/* USER CODE END Includes */
-
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-
-/* USER CODE END PTD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
 #define NULL_IP_ADDRESS      IP_ADDRESS(0,0,0,0)
 
 #define LED_ON     "led=LED_ON"
 #define LED_OFF    "led=LED_OFF"
-/* USER CODE END PD */
 
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
-/* USER CODE BEGIN PV */
 TX_THREAD          WebServer_thread;
 TX_SEMAPHORE       WebServer_Semaphore;
 NX_PACKET_POOL     net_packet_pool;
@@ -57,18 +34,12 @@ NX_WEB_HTTP_SERVER HTTPServer;
 FX_MEDIA SDMedia;
 ALIGN_32BYTES(uint32_t DataBuffer[512]);
 
-
 static uint8_t nx_server_pool[SERVER_POOL_SIZE];
 
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
-/* USER CODE BEGIN PFP */
 static VOID ip_address_change_notify_callback(NX_IP *ip_instance, VOID *ptr);
 static UINT webserver_request_notify_callback(NX_WEB_HTTP_SERVER *server_ptr,
                                               UINT request_type, CHAR *resource,
                                               NX_PACKET *packet_ptr);
-/* USER CODE END PFP */
 
 /**
   * @brief  Application NetXDuo Initialization.
@@ -80,14 +51,8 @@ UINT MX_NetXDuo_Init(VOID *memory_ptr)
   UINT ret = NX_SUCCESS;
   TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*)memory_ptr;
 
-   /* USER CODE BEGIN App_NetXDuo_MEM_POOL */
   (void)byte_pool;
-  /* USER CODE END App_NetXDuo_MEM_POOL */
-  /* USER CODE BEGIN 0 */
   UCHAR *pointer;
-  /* USER CODE END 0 */
-
-  /* USER CODE BEGIN MX_NetXDuo_Init */
 
   /* Initialize the NetXDuo system */
   nx_system_initialize();
@@ -205,12 +170,8 @@ UINT MX_NetXDuo_Init(VOID *memory_ptr)
     Error_Handler();
   }
 
-  /* USER CODE END MX_NetXDuo_Init */
-
   return ret;
 }
-
-/* USER CODE BEGIN 1 */
 
 /**
   * @brief  ip_address_change_notify_callback
@@ -318,5 +279,3 @@ VOID nx_server_thread_entry(ULONG thread_input)
     Error_Handler();
   }
 }
-
-/* USER CODE END 1 */

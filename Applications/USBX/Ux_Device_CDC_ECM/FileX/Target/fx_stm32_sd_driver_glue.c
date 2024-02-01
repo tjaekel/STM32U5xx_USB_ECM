@@ -19,10 +19,6 @@ extern SD_HandleTypeDef hsd1;
 extern void MX_SDMMC1_SD_Init(void);
 #endif
 
-/* USER CODE BEGIN  0 */
-
-/* USER CODE END  0 */
-
 /**
 * @brief Initializes the SD IP instance
 * @param UINT instance SD instance to initialize
@@ -32,17 +28,11 @@ INT fx_stm32_sd_init(UINT instance)
 {
   INT ret = 0;
 
-  /* USER CODE BEGIN PRE_FX_SD_INIT */
   UNUSED(instance);
-  /* USER CODE END PRE_FX_SD_INIT */
 
 #if (FX_STM32_SD_INIT == 1)
 	MX_SDMMC1_SD_Init();
 #endif
-
-  /* USER CODE BEGIN POST_FX_SD_INIT */
-
-  /* USER CODE END POST_FX_SD_INIT */
 
   return ret;
 }
@@ -55,19 +45,12 @@ INT fx_stm32_sd_init(UINT instance)
 INT fx_stm32_sd_deinit(UINT instance)
 {
   INT ret = 0;
-
-  /* USER CODE BEGIN PRE_FX_SD_DEINIT */
   UNUSED(instance);
-  /* USER CODE END PRE_FX_SD_DEINIT */
 
   if(HAL_SD_DeInit(&hsd1) != HAL_OK)
   {
     ret = 1;
   }
-
-  /* USER CODE BEGIN POST_FX_SD_DEINIT */
-
-  /* USER CODE END POST_FX_SD_DEINIT */
 
   return ret;
 }
@@ -80,19 +63,11 @@ INT fx_stm32_sd_deinit(UINT instance)
 INT fx_stm32_sd_get_status(UINT instance)
 {
   INT ret = 0;
-
-  /* USER CODE BEGIN PRE_GET_STATUS */
   UNUSED(instance);
-  /* USER CODE END PRE_GET_STATUS */
-
   if(HAL_SD_GetCardState(&hsd1) != HAL_SD_CARD_TRANSFER)
   {
     ret = 1;
   }
-
-  /* USER CODE BEGIN POST_GET_STATUS */
-
-  /* USER CODE END POST_GET_STATUS */
 
   return ret;
 }
@@ -108,19 +83,12 @@ INT fx_stm32_sd_get_status(UINT instance)
 INT fx_stm32_sd_read_blocks(UINT instance, UINT *buffer, UINT start_block, UINT total_blocks)
 {
   INT ret = 0;
-
-  /* USER CODE BEGIN PRE_READ_BLOCKS */
   UNUSED(instance);
-  /* USER CODE END PRE_READ_BLOCKS */
 
   if(HAL_SD_ReadBlocks_DMA(&hsd1, (uint8_t *)buffer, start_block, total_blocks) != HAL_OK)
   {
     ret = 1;
   }
-
-  /* USER CODE BEGIN POST_READ_BLOCKS */
-
-  /* USER CODE END POST_READ_BLOCKS */
 
   return ret;
 }
@@ -136,19 +104,12 @@ INT fx_stm32_sd_read_blocks(UINT instance, UINT *buffer, UINT start_block, UINT 
 INT fx_stm32_sd_write_blocks(UINT instance, UINT *buffer, UINT start_block, UINT total_blocks)
 {
   INT ret = 0;
-
-  /* USER CODE BEGIN PRE_WRITE_BLOCKS */
   UNUSED(instance);
-  /* USER CODE END PRE_WRITE_BLOCKS */
 
   if(HAL_SD_WriteBlocks_DMA(&hsd1, (uint8_t *)buffer, start_block, total_blocks) != HAL_OK)
   {
     ret = 1;
   }
-
-  /* USER CODE BEGIN POST_WRITE_BLOCKS */
-
-  /* USER CODE END POST_WRITE_BLOCKS */
 
   return ret;
 }
@@ -160,15 +121,7 @@ INT fx_stm32_sd_write_blocks(UINT instance, UINT *buffer, UINT start_block, UINT
 */
 void HAL_SD_TxCpltCallback(SD_HandleTypeDef *hsd)
 {
-  /* USER CODE BEGIN PRE_TX_CMPLT */
-
-  /* USER CODE END PRE_TX_CMPLT */
-
   tx_semaphore_put(&sd_tx_semaphore);
-
-  /* USER CODE BEGIN POST_TX_CMPLT */
-
-  /* USER CODE END POST_TX_CMPLT */
 }
 
 /**
@@ -178,18 +131,5 @@ void HAL_SD_TxCpltCallback(SD_HandleTypeDef *hsd)
 */
 void HAL_SD_RxCpltCallback(SD_HandleTypeDef *hsd)
 {
-
-   /* USER CODE BEGIN PRE_RX_CMPLT */
-
-  /* USER CODE END PRE_RX_CMPLT */
-
   tx_semaphore_put(&sd_rx_semaphore);
-
-  /* USER CODE BEGIN POST_RX_CMPLT */
-
-  /* USER CODE END POST_RX_CMPLT */
 }
-
-/* USER CODE BEGIN 1 */
-
-/* USER CODE END 1 */

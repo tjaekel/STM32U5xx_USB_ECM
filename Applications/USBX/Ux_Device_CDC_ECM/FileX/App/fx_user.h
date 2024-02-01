@@ -62,10 +62,6 @@
 #ifndef FX_USER_H
 #define FX_USER_H
 
-/* USER CODE BEGIN 1 */
-
-/* USER CODE END 1 */
-
 /* Define various build options for the FileX port.  The application should either make changes
    here by commenting or un-commenting the conditional compilation defined OR supply the defines though the compiler's equivalent of the -D option.  */
 
@@ -234,9 +230,5 @@ The FX_EXFAT_MAX_CACHE_SIZE is 2 power of FX_EXFAT_MAX_CACHE_SIZE_NB_BIT.  */
 /*
 #define FX_FAULT_TOLERANT_CACHE_SIZE            1024
 */
-
-/* USER CODE BEGIN 2 */
-
-/* USER CODE END 2 */
 
 #endif

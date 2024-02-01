@@ -1,4 +1,3 @@
-
 // by default AzureRTOS is configured to use static byte pool for
 // allocation, in case dynamic allocation is to be used, uncomment
 // the define below and update the linker files to define the following symbols

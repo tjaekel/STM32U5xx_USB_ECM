@@ -1,3 +1,4 @@
+#ifdef STM32U575xx
 /**
   ******************************************************************************
   * @file      startup_stm32u575xx.s
@@ -24,7 +25,6 @@
   *
   *******************************************************************************
   */
-
   .syntax unified
 	.cpu cortex-m33
 	.fpu softvfp
@@ -671,5 +671,4 @@ g_pfnVectors:
 
 	.weak	LSECSSD_IRQHandler
 	.thumb_set LSECSSD_IRQHandler,Default_Handler
-
-
+#endif

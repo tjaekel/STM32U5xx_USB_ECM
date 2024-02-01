@@ -1,4 +1,3 @@
-/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file    stm32u5xx_it.c
@@ -15,55 +14,22 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32u5xx_it.h"
 #include "usbpd.h"
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
+
 #include "stm32u5xx_ll_exti.h"
-/* USER CODE END Includes */
 
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN TD */
-
-/* USER CODE END TD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
-/* USER CODE BEGIN PV */
-
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
-/* USER CODE BEGIN PFP */
-
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
-/* External variables --------------------------------------------------------*/
 extern SD_HandleTypeDef hsd1;
+#ifndef STM32U5A5xx
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
+#else
+extern DMA_HandleTypeDef handle_GPDMA1_Channel0;
+extern PCD_HandleTypeDef hpcd_USB_OTG_HS;
+#endif
 extern TIM_HandleTypeDef htim6;
-
-/* USER CODE BEGIN EV */
-
-/* USER CODE END EV */
 
 /******************************************************************************/
 /*           Cortex Processor Interruption and Exception Handlers          */
@@ -73,14 +39,9 @@ extern TIM_HandleTypeDef htim6;
   */
 void NMI_Handler(void)
 {
-  /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
-
-  /* USER CODE END NonMaskableInt_IRQn 0 */
-  /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
   while (1)
   {
   }
-  /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
 /**
@@ -88,13 +49,8 @@ void NMI_Handler(void)
   */
 void HardFault_Handler(void)
 {
-  /* USER CODE BEGIN HardFault_IRQn 0 */
-
-  /* USER CODE END HardFault_IRQn 0 */
   while (1)
   {
-    /* USER CODE BEGIN W1_HardFault_IRQn 0 */
-    /* USER CODE END W1_HardFault_IRQn 0 */
   }
 }
 
@@ -103,13 +59,8 @@ void HardFault_Handler(void)
   */
 void MemManage_Handler(void)
 {
-  /* USER CODE BEGIN MemoryManagement_IRQn 0 */
-
-  /* USER CODE END MemoryManagement_IRQn 0 */
   while (1)
   {
-    /* USER CODE BEGIN W1_MemoryManagement_IRQn 0 */
-    /* USER CODE END W1_MemoryManagement_IRQn 0 */
   }
 }
 
@@ -118,13 +69,8 @@ void MemManage_Handler(void)
   */
 void BusFault_Handler(void)
 {
-  /* USER CODE BEGIN BusFault_IRQn 0 */
-
-  /* USER CODE END BusFault_IRQn 0 */
   while (1)
   {
-    /* USER CODE BEGIN W1_BusFault_IRQn 0 */
-    /* USER CODE END W1_BusFault_IRQn 0 */
   }
 }
 
@@ -133,13 +79,8 @@ void BusFault_Handler(void)
   */
 void UsageFault_Handler(void)
 {
-  /* USER CODE BEGIN UsageFault_IRQn 0 */
-
-  /* USER CODE END UsageFault_IRQn 0 */
   while (1)
   {
-    /* USER CODE BEGIN W1_UsageFault_IRQn 0 */
-    /* USER CODE END W1_UsageFault_IRQn 0 */
   }
 }
 
@@ -148,12 +89,6 @@ void UsageFault_Handler(void)
   */
 void DebugMon_Handler(void)
 {
-  /* USER CODE BEGIN DebugMonitor_IRQn 0 */
-
-  /* USER CODE END DebugMonitor_IRQn 0 */
-  /* USER CODE BEGIN DebugMonitor_IRQn 1 */
-
-  /* USER CODE END DebugMonitor_IRQn 1 */
 }
 
 /******************************************************************************/
@@ -163,18 +98,22 @@ void DebugMon_Handler(void)
 /* please refer to the startup file (startup_stm32u5xx.s).                    */
 /******************************************************************************/
 
+#ifdef STM32U5A5xx
+/**
+  * @brief This function handles GPDMA1 Channel 0 global interrupt.
+  */
+/* not really used here, for UART1 with DMA */
+void GPDMA1_Channel0_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(&handle_GPDMA1_Channel0);
+}
+#endif
+
 /**
   * @brief This function handles GPDMA1 Channel 3 global interrupt.
   */
 void GPDMA1_Channel3_IRQHandler(void)
 {
-  /* USER CODE BEGIN GPDMA1_Channel3_IRQn 0 */
-
-  /* USER CODE END GPDMA1_Channel3_IRQn 0 */
-
-  /* USER CODE BEGIN GPDMA1_Channel3_IRQn 1 */
-
-  /* USER CODE END GPDMA1_Channel3_IRQn 1 */
 }
 
 /**
@@ -182,13 +121,6 @@ void GPDMA1_Channel3_IRQHandler(void)
   */
 void GPDMA1_Channel5_IRQHandler(void)
 {
-  /* USER CODE BEGIN GPDMA1_Channel5_IRQn 0 */
-
-  /* USER CODE END GPDMA1_Channel5_IRQn 0 */
-
-  /* USER CODE BEGIN GPDMA1_Channel5_IRQn 1 */
-
-  /* USER CODE END GPDMA1_Channel5_IRQn 1 */
 }
 
 /**
@@ -196,41 +128,31 @@ void GPDMA1_Channel5_IRQHandler(void)
   */
 void TIM6_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM6_IRQn 0 */
-
-  /* USER CODE END TIM6_IRQn 0 */
   HAL_TIM_IRQHandler(&htim6);
-  /* USER CODE BEGIN TIM6_IRQn 1 */
-
-  /* USER CODE END TIM6_IRQn 1 */
 }
 
 /**
   * @brief This function handles USB OTG FS global interrupt.
   */
+
+#ifndef STM32U5A5xx
 void OTG_FS_IRQHandler(void)
 {
-  /* USER CODE BEGIN OTG_FS_IRQn 0 */
-
-  /* USER CODE END OTG_FS_IRQn 0 */
   HAL_PCD_IRQHandler(&hpcd_USB_OTG_FS);
-  /* USER CODE BEGIN OTG_FS_IRQn 1 */
-
-  /* USER CODE END OTG_FS_IRQn 1 */
 }
+#else
+void OTG_HS_IRQHandler(void)
+{
+  HAL_PCD_IRQHandler(&hpcd_USB_OTG_HS);
+}
+#endif
 
 /**
   * @brief This function handles SDMMC1 global interrupt.
   */
 void SDMMC1_IRQHandler(void)
 {
-  /* USER CODE BEGIN SDMMC1_IRQn 0 */
-
-  /* USER CODE END SDMMC1_IRQn 0 */
   HAL_SD_IRQHandler(&hsd1);
-  /* USER CODE BEGIN SDMMC1_IRQn 1 */
-
-  /* USER CODE END SDMMC1_IRQn 1 */
 }
 
 /**
@@ -238,17 +160,8 @@ void SDMMC1_IRQHandler(void)
   */
 void UCPD1_IRQHandler(void)
 {
-  /* USER CODE BEGIN UCPD1_IRQn 0 */
-
-  /* USER CODE END UCPD1_IRQn 0 */
   USBPD_PORT0_IRQHandler();
-
-  /* USER CODE BEGIN UCPD1_IRQn 1 */
-
-  /* USER CODE END UCPD1_IRQn 1 */
 }
-
-/* USER CODE BEGIN 1 */
 
 #if defined(TCPP0203_SUPPORT)
 /**
@@ -257,14 +170,10 @@ void UCPD1_IRQHandler(void)
   * @retval None
   */
 void EXTI8_IRQHandler(void)
-
 {
-
   /* Manage Flags */
   if (LL_EXTI_IsActiveFallingFlag_0_31(LL_EXTI_LINE_8) != RESET)
-
   {
-
     /* Call BSP USBPD PWR callback */
     BSP_USBPD_PWR_EventCallback(USBPD_PWR_TYPE_C_PORT_1);
 
@@ -274,4 +183,4 @@ void EXTI8_IRQHandler(void)
 }
 
 #endif /* TCPP0203_SUPPORT */
-/* USER CODE END 1 */
+

@@ -275,8 +275,8 @@ uint16_t USBD_Get_Configuration_Number(uint8_t class_type, uint8_t interface_typ
 
 /* USER CODE END Private_defines */
 
-#define USBD_VID                                      1155	//0x05F9	//1155		//0x20B1	//1155		AAAA
-#define USBD_PID                                      22337	//0x042C	//22337		//0x0402	//22337		AAAA
+#define USBD_VID                                      0x15EC	//0x05F9	//1155		//0x20B1	//1155		AAAA
+#define USBD_PID                                      0xD031	//0x042C	//22337		//0x0402	//22337		AAAA
 #define USBD_LANGID_STRING                            1033
 #define USBD_MANUFACTURER_STRING                      "STMicroelectronics"
 #define USBD_PRODUCT_STRING                           "STM32 CDC ECM"

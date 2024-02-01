@@ -52,7 +52,11 @@ static TX_THREAD ux_device_app_thread;
 
 /* USER CODE BEGIN PV */
 TX_QUEUE                           ux_app_MsgQueue;
+#ifndef STM32U5A5xx
 extern PCD_HandleTypeDef           hpcd_USB_OTG_FS;
+#else
+extern PCD_HandleTypeDef		   hpcd_USB_OTG_HS;
+#endif
 #if defined ( __ICCARM__ ) /* IAR Compiler */
   #pragma data_alignment=4
 #endif /* defined ( __ICCARM__ ) */
@@ -254,13 +258,21 @@ static VOID app_ux_device_thread_entry(ULONG thread_input)
     if (USB_Device_State_Msg == START_USB_DEVICE)
     {
       /* Start device USB */
+#ifndef STM32U5A5xx
       HAL_PCD_Start(&hpcd_USB_OTG_FS);
+#else
+      HAL_PCD_Start(&hpcd_USB_OTG_HS);
+#endif
     }
     /* Check if received message equal to USB_PCD_STOP */
     else if (USB_Device_State_Msg == STOP_USB_DEVICE)
     {
       /* Stop device USB */
+#ifndef STM32U5A5xx
       HAL_PCD_Stop(&hpcd_USB_OTG_FS);
+#else
+      HAL_PCD_Stop(&hpcd_USB_OTG_HS);
+#endif
     }
     /* Else Error */
     else
@@ -286,9 +298,14 @@ VOID USBX_APP_Device_Init(VOID)
   /* USER CODE END USB_Device_Init_PreTreatment_0 */
 
   /* Initialize the device controller HAL driver */
+#ifndef STM32U5A5xx
   MX_USB_OTG_FS_PCD_Init();
+#else
+  MX_USB_OTG_HS_PCD_Init();
+#endif
 
   /* USER CODE BEGIN USB_Device_Init_PreTreatment_1 */
+#ifndef STM32U5A5xx
   HAL_PCDEx_SetRxFiFo(&hpcd_USB_OTG_FS, 0x100);
   HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_FS, 0, 0x10);
   HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_FS, 1, 0x20);
@@ -298,6 +315,17 @@ VOID USBX_APP_Device_Init(VOID)
 
   /* Initialize and link controller HAL driver to USBx */
   ux_dcd_stm32_initialize((ULONG)USB_OTG_FS, (ULONG)&hpcd_USB_OTG_FS);
+#else
+  HAL_PCDEx_SetRxFiFo(&hpcd_USB_OTG_HS, 0x100);
+  HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_HS, 0, 0x10);
+  HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_HS, 1, 0x20);
+  HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_HS, 2, 0x10);
+
+  /* USER CODE END USB_Device_Init_PreTreatment_1 */
+
+  /* Initialize and link controller HAL driver to USBx */
+  ux_dcd_stm32_initialize((ULONG)USB_OTG_HS, (ULONG)&hpcd_USB_OTG_HS);
+#endif
 
   /* USER CODE BEGIN USB_Device_Init_PostTreatment */
   /* USER CODE END USB_Device_Init_PostTreatment */
