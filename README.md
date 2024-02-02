@@ -1,5 +1,5 @@
 # STM32U5xx_USB_ECM
- NUCLEO-U575ZI-Q wnd NUCLEO-U5A5ZJ-Q with USB ECM, without SD Card
+ NUCLEO-U575ZI-Q and NUCLEO-U5A5ZJ-Q with USB ECM, without SD Card
 
 ## USB ECM
 This project is converted and modified from the STM32U575-EV board, to run it on a NUCLEO-U575ZI-Q board, meanwhile also on a NUCLEO-U5A5ZJ-Q board.
