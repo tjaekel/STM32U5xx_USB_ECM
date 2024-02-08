@@ -1,4 +1,3 @@
-/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file    ux_device_descriptors.c
@@ -16,32 +15,9 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
 
-/* Includes ------------------------------------------------------------------*/
 #include "ux_device_descriptors.h"
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-
-/* USER CODE END Includes */
-
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-
-/* USER CODE END PTD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
 USBD_DevClassHandleTypeDef  USBD_Device_FS, USBD_Device_HS;
 
 uint8_t UserClassInstance[USBD_MAX_CLASS_INTERFACES] = {
@@ -65,9 +41,6 @@ __ALIGN_BEGIN static uint8_t DevFrameWorkDesc_HS[USBD_FRAMEWORK_MAX_DESC_SZ] __A
 static uint8_t *pDevFrameWorkDesc_FS = DevFrameWorkDesc_FS;
 
 static uint8_t *pDevFrameWorkDesc_HS = DevFrameWorkDesc_HS;
-/* USER CODE BEGIN PV0 */
-
-/* USER CODE END PV0 */
 
 /* String Device Framework :
  Byte 0 and 1 : Word containing the language ID : 0x0904 for US
@@ -90,10 +63,6 @@ __ALIGN_END = {0};
 #endif /* defined ( __ICCARM__ ) */
 __ALIGN_BEGIN UCHAR USBD_language_id_framework[LANGUAGE_ID_MAX_LENGTH]
 __ALIGN_END = {0};
-
-/* USER CODE BEGIN PV1 */
-
-/* USER CODE END PV1 */
 
 /* Private function prototypes -----------------------------------------------*/
 static void USBD_Desc_GetString(uint8_t *desc, uint8_t *Buffer, uint16_t *len);
@@ -125,15 +94,6 @@ static void USBD_FrameWork_CDCECMDesc(USBD_DevClassHandleTypeDef *pdev,
                                       uint32_t pConf, uint32_t *Sze);
 #endif /* USBD_CDC_ECM_CLASS_ACTIVATED == 1U */
 
-/* USER CODE BEGIN PFP */
-
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
 /**
   * @brief  USBD_Get_Device_Framework_Speed
   *         Return the device speed descriptor
@@ -144,9 +104,6 @@ static void USBD_FrameWork_CDCECMDesc(USBD_DevClassHandleTypeDef *pdev,
 uint8_t *USBD_Get_Device_Framework_Speed(uint8_t Speed, ULONG *Length)
 {
   uint8_t *pFrameWork = NULL;
-  /* USER CODE BEGIN Device_Framework0 */
-
-  /* USER TAG BEGIN Device_Framework0 */
 
   if (USBD_FULL_SPEED == Speed)
   {
@@ -168,9 +125,7 @@ uint8_t *USBD_Get_Device_Framework_Speed(uint8_t Speed, ULONG *Length)
 
     pFrameWork = pDevFrameWorkDesc_HS;
   }
-  /* USER CODE Device_Framework1 */
 
-  /* USER CODE Device_Framework1 */
   return pFrameWork;
 }
 
@@ -184,10 +139,6 @@ uint8_t *USBD_Get_String_Framework(ULONG *Length)
 {
   uint16_t len = 0U;
   uint8_t count = 0U;
-
-  /* USER CODE String_Framework0 */
-
-  /* USER CODE String_Framework0 */
 
   /* Set the Manufacturer language Id and index in USBD_string_framework */
   USBD_string_framework[count++] = USBD_LANGID_STRING & 0xFF;
@@ -228,10 +179,6 @@ uint8_t *USBD_Get_String_Framework(ULONG *Length)
 
 #endif /* USBD_CDC_ECM_CLASS_ACTIVATED */
 
-  /* USER CODE String_Framework1 */
-
-  /* USER CODE String_Framework1 */
-
   /* Get the length of USBD_string_framework */
   *Length = strlen((const char *)USBD_string_framework);
 
@@ -270,10 +217,6 @@ uint16_t USBD_Get_Interface_Number(uint8_t class_type, uint8_t interface_type)
   uint8_t itf_num = 0U;
   uint8_t idx = 0U;
 
-  /* USER CODE BEGIN USBD_Get_Interface_Number0 */
-
-  /* USER CODE BEGIN USBD_Get_Interface_Number0 */
-
   for(idx = 0; idx < USBD_MAX_SUPPORTED_CLASS; idx++)
   {
     if ((USBD_Device_FS.tclasslist[idx].ClassType == class_type) &&
@@ -282,10 +225,6 @@ uint16_t USBD_Get_Interface_Number(uint8_t class_type, uint8_t interface_type)
       itf_num = USBD_Device_FS.tclasslist[idx].Ifs[0];
     }
   }
-
-  /* USER CODE BEGIN USBD_Get_Interface_Number1 */
-
-  /* USER CODE BEGIN USBD_Get_Interface_Number1 */
 
   return itf_num;
 }
@@ -300,14 +239,6 @@ uint16_t USBD_Get_Interface_Number(uint8_t class_type, uint8_t interface_type)
 uint16_t USBD_Get_Configuration_Number(uint8_t class_type, uint8_t interface_type)
 {
   uint8_t cfg_num = 1U;
-
-  /* USER CODE BEGIN USBD_Get_CONFIGURATION_Number0 */
-
-  /* USER CODE BEGIN USBD_Get_CONFIGURATION_Number0 */
-
-  /* USER CODE BEGIN USBD_Get_CONFIGURATION_Number1 */
-
-  /* USER CODE BEGIN USBD_Get_CONFIGURATION_Number1 */
 
   return cfg_num;
 }
@@ -511,10 +442,6 @@ uint8_t  USBD_FrameWork_AddToConfDesc(USBD_DevClassHandleTypeDef *pdev, uint8_t 
 {
   uint8_t interface = 0U;
 
-  /* USER CODE FrameWork_AddToConfDesc_0 */
-
-  /* USER CODE FrameWork_AddToConfDesc_0 */
-
   /* The USB drivers do not set the speed value, so set it here before starting */
   pdev->Speed = Speed;
 
@@ -577,14 +504,7 @@ uint8_t  USBD_FrameWork_AddToConfDesc(USBD_DevClassHandleTypeDef *pdev, uint8_t 
       break;
 
 #endif /* USBD_CDC_ECM_CLASS_ACTIVATED */
-    /* USER CODE FrameWork_AddToConfDesc_1 */
-
-    /* USER CODE FrameWork_AddToConfDesc_1 */
-
     default:
-      /* USER CODE FrameWork_AddToConfDesc_2 */
-
-      /* USER CODE FrameWork_AddToConfDesc_2 */
       break;
   }
 
@@ -705,8 +625,7 @@ static void USBD_FrameWork_CDCECMDesc(USBD_DevClassHandleTypeDef *pdev,
 #endif /* USBD_COMPOSITE_USE_IAD == 1 */
 
   /* Append ECM Interface descriptor */
-  __USBD_FRAMEWORK_SET_IF(pdev->tclasslist[pdev->classId].Ifs[0], 0U, 1U, 0x02U,
-                          0x06U, 0U, 0U);
+  __USBD_FRAMEWORK_SET_IF(pdev->tclasslist[pdev->classId].Ifs[0], 0, 1U, 0x02U, 0x06U, 0U, 0U);
 
   /* Append ECM header functional descriptor to Configuration descriptor */
   pHeadDesc = ((USBD_CDCHeaderFuncDescTypedef *)(pConf + *Sze));
@@ -740,16 +659,17 @@ static void USBD_FrameWork_CDCECMDesc(USBD_DevClassHandleTypeDef *pdev,
   pUnionDesc->bSlaveInterface = pdev->tclasslist[pdev->classId].Ifs[1];
   *Sze += (uint32_t)sizeof(USBD_CDCUnionFuncDescTypedef);
 
-  /* Append ECM Communication IN Endpoint Descriptor to Configuration descriptor */
-  __USBD_FRAMEWORK_SET_EP(pdev->tclasslist[pdev->classId].Eps[2].add,
-                          USBD_EP_TYPE_INTR,
-                          (uint16_t)pdev->tclasslist[pdev->classId].Eps[2].size,
-                          USBD_CDCECM_EPINCMD_HS_BINTERVAL,
-                          USBD_CDCECM_EPINCMD_FS_BINTERVAL);
+  /* Append ECM Interrupt IN Endpoint Descriptor to Configuration descriptor */
+  __USBD_FRAMEWORK_SET_EP((pdev->tclasslist[pdev->classId].Eps[2].add),
+                          (USBD_EP_TYPE_INTR),
+                          (uint16_t)(pdev->tclasslist[pdev->classId].Eps[2].size),
+                          (0x00U), (0x00U));
 
   /* Append ECM Data class interface descriptor to Configuration descriptor */
-  __USBD_FRAMEWORK_SET_IF(pdev->tclasslist[pdev->classId].Ifs[1], 0U, 2U, 0x0AU, 0U,
-                          0U, 0U);
+  __USBD_FRAMEWORK_SET_IF(pdev->tclasslist[pdev->classId].Ifs[1], 0U, 0U, 0x0AU, 0U, 0U, 0U);
+
+  /* Append ECM Data class interface descriptor to Configuration descriptor */
+  __USBD_FRAMEWORK_SET_IF(pdev->tclasslist[pdev->classId].Ifs[1], 1U, 2U, 0x0AU, 0U, 0U, 0U);
 
   /* Append ECM OUT Endpoint Descriptor to Configuration descriptor */
   __USBD_FRAMEWORK_SET_EP((pdev->tclasslist[pdev->classId].Eps[0].add),
@@ -768,7 +688,3 @@ static void USBD_FrameWork_CDCECMDesc(USBD_DevClassHandleTypeDef *pdev,
   ((USBD_ConfigDescTypedef*)pConf)->wDescriptorLength = *Sze;
 }
 #endif /* USBD_CDC_ECM_CLASS_ACTIVATED */
-
-/* USER CODE BEGIN 1 */
-
-/* USER CODE END 1 */
