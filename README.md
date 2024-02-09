@@ -21,10 +21,13 @@ It is much faster and it does not need a SD Card (no adapter and neither to stor
 
 ## How to use?
 At best you try with Android (it works well there) or a Linux, MacOS system.
-For a Windows OS - there is not a related driver for USB ECM (just RNDIS, but this project is not RNDIS based).
+Using on a Windows OS - please see below.
 
-Enable the "Ethernet Tethering", see on the UART Console (via ST-Link, baudrate 115200) the IP address as asigned to MCU board.
+On Android: enable the "Ethernet Tethering", see on the UART Console (via ST-Link, baudrate 115200) the IP address as asigned to MCU board.
 Open Web Browser (on Android phone) and enter as URL: http://IPADDR/index.html
+
+On Linux: you should see a network device for USB ECM (potentially as an Ethernet device).
+You have to watch also the UART Console, open the USB ACM device with "screen /dev/uc.xxxx 115200" (depends how the VCP UART shows up as device).
 
 ## About the project
 It is a STM32CubeIDE project only. All not needed files are removed (e.g. for IAR, AC6).
@@ -32,8 +35,17 @@ It is a STM32CubeIDE project only. All not needed files are removed (e.g. for IA
 It is a port from the STM32U575-EV board demo project and it works now on NUCLEO-U575 as well as NUCLEO-U5A5:
 Just set the macros STM32U575xx vs. STM32U5A5xx accordingly. ATTENTION: macros set for C-compiler as well as Assembler!
 
+The macro NUCLEO_BOARD has to be defined for a NUCLEO board, otherwise it generates code for my own PCB.
+
 ## USB on 575 vs. U5A5
 It demonstates also the differences for the USB configuration, on a STM32U575 (with an USB OTG FS PHY only) and a STM32U5A5 (with an integrated USB OTG HS PHY!).
 
 For USB ECM I had to set the speed, even U5A5 is HS PHY, to FS speed (but still using HS PHY on U5A5, just in FS mode).
+
+## Use on Windows OS
+It works fine with "Belcarra Embedded USB Software" USBLAN demo driver:
+http://usblan.belcarra.com     http://www.belcarra.com 
+When the USB-C is connected - you should see a new Ethernet adapter (and no issues on Device Manager, a new adapter unter Network adapters working).
+
+See the MCU IP address on UART terminal and open web browser with URL set as:  http://ipaddr/index.html
 
